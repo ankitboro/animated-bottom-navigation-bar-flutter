@@ -369,7 +369,11 @@ class _AnimatedBottomNavigationBarState
 
   @override
   void dispose() {
-    _bubbleController.dispose();
+    try {
+      _bubbleController.dispose();
+    } catch (e) {
+      debugPrint("Error at bubble controller");
+    }
     super.dispose();
   }
 
