@@ -21,7 +21,7 @@ typedef IndexedWidgetBuilder = Widget Function(int index, bool isActive);
 
 class AnimatedBottomNavigationBar extends StatefulWidget {
   /// Widgets to render in the tab bar.
-  final IndexedWidgetBuilder? tabBuilder;
+  final IndexedWidgetBuilder tabBuilder;
 
   /// Total item count.
   final int? itemCount;
@@ -130,7 +130,7 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
       {Key? key,
       required this.activeIndex,
       required this.onTap,
-      this.tabBuilder,
+      required this.tabBuilder,
       this.itemCount,
       required this.bottomIcons,
       this.height,
@@ -185,6 +185,7 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
     required List<Widget> icons,
     required int activeIndex,
     required Function(int) onTap,
+    required IndexedWidgetBuilder tabBuilder,
     double? height,
     double? splashRadius,
     int? splashSpeedInMilliseconds,
@@ -228,6 +229,7 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
           leftCornerRadius: leftCornerRadius ?? 0,
           rightCornerRadius: rightCornerRadius ?? 0,
           iconSize: iconSize,
+          tabBuilder: tabBuilder,
           notchSmoothness: notchSmoothness,
           gapLocation: gapLocation ?? GapLocation.end,
           gapWidth: gapWidth,
