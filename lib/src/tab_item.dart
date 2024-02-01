@@ -22,6 +22,6 @@ class TabItem extends StatelessWidget {
   Widget build(BuildContext context) => child ?? _buildDefaultTab();
 
   Widget _buildDefaultTab() {
-    return child;
+    return iconData;
   }
 }
