@@ -27,7 +27,8 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
   final int? itemCount;
 
   /// Icon data to render in the tab bar.
-  final List<IconData>? icons;
+  // final List<IconData>? icons;
+  final List<Widget> bottomIcons;
 
   /// Handler which is passed every updated active index.
   final Function(int) onTap;
@@ -131,7 +132,7 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
       required this.onTap,
       this.tabBuilder,
       this.itemCount,
-      this.icons,
+      required this.bottomIcons,
       this.height,
       this.splashRadius = _defaultSplashRadius,
       this.splashSpeedInMilliseconds,
@@ -158,10 +159,10 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
       this.blurEffect = false,
       this.blurFilter,
       this.scaleFactor = 1.0})
-      : assert(icons != null || itemCount != null),
+      : assert(bottomIcons != null || itemCount != null),
         assert(
-          ((itemCount ?? icons!.length) >= 2) &&
-              ((itemCount ?? icons!.length) <= 5),
+          ((itemCount ?? bottomIcons!.length) >= 2) &&
+              ((itemCount ?? bottomIcons!.length) <= 5),
         ),
         super(key: key) {
     if (gapLocation == GapLocation.end) {
@@ -171,7 +172,7 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
             'consider set rightCornerRadius to 0.');
     }
     if (gapLocation == GapLocation.center) {
-      final iconsCountIsOdd = (itemCount ?? icons!.length).isOdd;
+      final iconsCountIsOdd = (itemCount ?? bottomIcons!.length).isOdd;
       if (iconsCountIsOdd)
         throw NonAppropriatePathException(
             'Odd count of icons along with $gapLocation causes render issue => '
@@ -181,7 +182,7 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
 
   AnimatedBottomNavigationBar({
     Key? key,
-    required List<IconData> icons,
+    required List<Widget> icons,
     required int activeIndex,
     required Function(int) onTap,
     double? height,
@@ -212,7 +213,7 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
     double scaleFactor = 1.0,
   }) : this._internal(
           key: key,
-          icons: icons,
+          bottomIcons: icons,
           activeIndex: activeIndex,
           onTap: onTap,
           height: height,
@@ -243,65 +244,66 @@ class AnimatedBottomNavigationBar extends StatefulWidget {
           scaleFactor: scaleFactor,
         );
 
-  AnimatedBottomNavigationBar.builder({
-    Key? key,
-    required int itemCount,
-    required IndexedWidgetBuilder tabBuilder,
-    required int activeIndex,
-    required Function(int) onTap,
-    double? height,
-    double? splashRadius,
-    int? splashSpeedInMilliseconds,
-    double? notchMargin,
-    Color? backgroundColor,
-    Color? splashColor,
-    Animation<double>? notchAndCornersAnimation,
-    double? leftCornerRadius,
-    double? rightCornerRadius,
-    NotchSmoothness? notchSmoothness,
-    GapLocation? gapLocation,
-    double? gapWidth,
-    double? elevation,
-    Shadow? shadow,
-    Color? borderColor,
-    double? borderWidth,
-    SafeAreaValues safeAreaValues = const SafeAreaValues(),
-    Curve? hideAnimationCurve,
-    AnimationController? hideAnimationController,
-    Gradient? backgroundGradient,
-    bool blurEffect = false,
-    ImageFilter? imageFilter,
-    double scaleFactor = 1.0,
-  }) : this._internal(
-          key: key,
-          tabBuilder: tabBuilder,
-          itemCount: itemCount,
-          activeIndex: activeIndex,
-          onTap: onTap,
-          height: height,
-          splashRadius: splashRadius ?? _defaultSplashRadius,
-          splashSpeedInMilliseconds: splashSpeedInMilliseconds,
-          notchMargin: notchMargin,
-          backgroundColor: backgroundColor,
-          splashColor: splashColor,
-          notchAndCornersAnimation: notchAndCornersAnimation,
-          leftCornerRadius: leftCornerRadius ?? 0,
-          rightCornerRadius: rightCornerRadius ?? 0,
-          notchSmoothness: notchSmoothness,
-          gapLocation: gapLocation ?? GapLocation.end,
-          gapWidth: gapWidth,
-          elevation: elevation,
-          shadow: shadow,
-          borderColor: borderColor,
-          borderWidth: borderWidth,
-          safeAreaValues: safeAreaValues,
-          hideAnimationCurve: hideAnimationCurve,
-          hideAnimationController: hideAnimationController,
-          backgroundGradient: backgroundGradient,
-          blurEffect: blurEffect,
-          blurFilter: imageFilter,
-          scaleFactor: scaleFactor,
-        );
+  // AnimatedBottomNavigationBar.builder({
+  //   Key? key,
+  //   required int itemCount,
+  //   required IndexedWidgetBuilder tabBuilder,
+  //   required int activeIndex,
+  //   required Function(int) onTap,
+  //   double? height,
+  //   double? splashRadius,
+  //   int? splashSpeedInMilliseconds,
+  //   double? notchMargin,
+  //   Color? backgroundColor,
+  //   Color? splashColor,
+  //   Animation<double>? notchAndCornersAnimation,
+  //   double? leftCornerRadius,
+  //   double? rightCornerRadius,
+  //   NotchSmoothness? notchSmoothness,
+  //   GapLocation? gapLocation,
+  //   double? gapWidth,
+  //   double? elevation,
+  //   Shadow? shadow,
+  //   Color? borderColor,
+  //   double? borderWidth,
+  //   SafeAreaValues safeAreaValues = const SafeAreaValues(),
+  //   Curve? hideAnimationCurve,
+  //   AnimationController? hideAnimationController,
+  //   Gradient? backgroundGradient,
+  //   bool blurEffect = false,
+  //   ImageFilter? imageFilter,
+  //   double scaleFactor = 1.0,
+  // }) : this._internal(
+  //         key: key,
+  //         tabBuilder: tabBuilder,
+  //         itemCount: itemCount,
+  //         activeIndex: activeIndex,
+  //         bottomIcons: [],
+  //         onTap: onTap,
+  //         height: height,
+  //         splashRadius: splashRadius ?? _defaultSplashRadius,
+  //         splashSpeedInMilliseconds: splashSpeedInMilliseconds,
+  //         notchMargin: notchMargin,
+  //         backgroundColor: backgroundColor,
+  //         splashColor: splashColor,
+  //         notchAndCornersAnimation: notchAndCornersAnimation,
+  //         leftCornerRadius: leftCornerRadius ?? 0,
+  //         rightCornerRadius: rightCornerRadius ?? 0,
+  //         notchSmoothness: notchSmoothness,
+  //         gapLocation: gapLocation ?? GapLocation.end,
+  //         gapWidth: gapWidth,
+  //         elevation: elevation,
+  //         shadow: shadow,
+  //         borderColor: borderColor,
+  //         borderWidth: borderWidth,
+  //         safeAreaValues: safeAreaValues,
+  //         hideAnimationCurve: hideAnimationCurve,
+  //         hideAnimationController: hideAnimationController,
+  //         backgroundGradient: backgroundGradient,
+  //         blurEffect: blurEffect,
+  //         blurFilter: imageFilter,
+  //         scaleFactor: scaleFactor,
+  //       );
 
   @override
   _AnimatedBottomNavigationBarState createState() =>
@@ -314,7 +316,6 @@ class _AnimatedBottomNavigationBarState
 
   late final AnimationController _bubbleController;
   late final CurvedAnimation bubbleCurve;
-
 
   double _bubbleRadius = 0;
   double _iconScale = 1;
@@ -458,7 +459,7 @@ class _AnimatedBottomNavigationBarState
     final gapItemWidth = widget.notchAndCornersAnimation != null
         ? gapWidth * widget.notchAndCornersAnimation!.value
         : gapWidth;
-    final itemCount = widget.itemCount ?? widget.icons!.length;
+    final itemCount = widget.itemCount ?? widget.bottomIcons!.length;
 
     final items = <Widget>[];
     for (var i = 0; i < itemCount; i++) {
@@ -477,7 +478,7 @@ class _AnimatedBottomNavigationBarState
           activeColor: widget.activeColor,
           inactiveColor: widget.inactiveColor,
           child: widget.tabBuilder?.call(i, isActive),
-          iconData: widget.icons?.elementAt(i),
+          iconData: widget.bottomIcons.elementAt(i),
           iconScale: _iconScale,
           iconSize: widget.iconSize,
           onTap: () => widget.onTap(i),
