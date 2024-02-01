@@ -478,7 +478,7 @@ class _AnimatedBottomNavigationBarState
           bubbleColor: widget.splashColor,
           activeColor: widget.activeColor,
           inactiveColor: widget.inactiveColor,
-          child: widget.tabBuilder?.call(i, isActive),
+          child: widget.tabBuilder!.call(i, isActive),
           iconData: widget.bottomIcons.elementAt(i),
           iconScale: _iconScale,
           iconSize: widget.iconSize,

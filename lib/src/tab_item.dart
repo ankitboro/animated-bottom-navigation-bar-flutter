@@ -6,7 +6,7 @@ class TabItem extends StatelessWidget {
   final bool isActive;
   final Color? activeColor;
   final Color? inactiveColor;
-  final Widget? child;
+  final Widget child;
 
   const TabItem({
     Key? key,
@@ -15,13 +15,13 @@ class TabItem extends StatelessWidget {
     this.iconSize = 24,
     this.activeColor = Colors.deepPurpleAccent,
     this.inactiveColor = Colors.black,
-    this.child,
+    required this.child,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => child ?? _buildDefaultTab();
 
   Widget _buildDefaultTab() {
-    return child!;
+    return child;
   }
 }

@@ -13,7 +13,7 @@ class NavigationBarItem extends StatelessWidget {
   final double iconScale;
   final double? iconSize;
   final VoidCallback onTap;
-  final Widget? child;
+  final Widget child;
 
   NavigationBarItem({
     required this.isActive,
@@ -26,7 +26,7 @@ class NavigationBarItem extends StatelessWidget {
     required this.iconScale,
     required this.iconSize,
     required this.onTap,
-    this.child,
+    required this.child,
   });
 
   @override
